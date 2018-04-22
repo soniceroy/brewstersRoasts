@@ -2,7 +2,7 @@
 // get a database connection
 class Database {
     private $host = "localhost";
-    private $db_name = "BREWSTERS";
+    private $db_name = "shop_cart_sessions_1";
     private $uname = "root";
     private $pword = "student";
     public $conn;
@@ -19,8 +19,4 @@ class Database {
         return $this->conn;
     }
 }
-
-$db = (new Database())->getConnection();
-echo "We did it!";
-
 ?>

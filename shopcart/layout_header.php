@@ -1,4 +1,5 @@
 <?php
+session_start();
 $_SESSION['cart']=isset($_SESSION['cart']) ? $_SESSION['cart'] : array();
 ?>
 <!DOCTYPE html>
