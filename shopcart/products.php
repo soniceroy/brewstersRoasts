@@ -2,7 +2,7 @@
 // start session
 session_start();
 // connect to database
-include 'config/database.php';
+include '../config/database.php';
  
 // include objects
 include_once "objects/product.php";

@@ -128,3 +128,4 @@ HAVING SUM(orderQuantity) = (
         GROUP BY beanId
     ) sums
 );
+
