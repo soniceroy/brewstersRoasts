@@ -51,6 +51,12 @@
     float: left;
     margin: 0 10px 0 0;
 }
+
+.delete-order-form {
+    width: 150px;
+    float: left;
+    margin: 0 10px 0 0;
+}
  
 .cart-row {
     border-bottom: thin solid #f1f1f1;

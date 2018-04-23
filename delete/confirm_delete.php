@@ -31,12 +31,12 @@ include 'layout_header.php';
 
 <div class="container">
   <p>Please Enter the order Id</p>
-  <form class="delete-order-form">
-    <div class="form-group">
+  <form>
+    <div class="form-group delete-order-form">
       <label for="order">Order Id:</label>
       <input type="text" class="form-control order-id" id="order">
     </div>
-  <button type="submit" class="btn btn-default delete-order">Submit</button>
+  <button type="submit" class="btn btn-default">Submit</button>
   </form>
 </div>
 

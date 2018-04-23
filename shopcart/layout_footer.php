@@ -21,6 +21,7 @@ $(document).ready(function(){
  
         // redirect to add_to_cart.php, with parameter values to process the request
         window.location.href = "add_to_cart.php?id=" + id + "&quantity=" + quantity;
+
         return false;
     });
     
