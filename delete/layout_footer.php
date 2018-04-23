@@ -18,6 +18,15 @@ $(document).ready(function(){
         //window.location.replace("find_order.php?id=" + id);
         return false;
     });
+    $('.confirm-delete-form').on('submit', function(){
+        // get order number
+        var id = $(this).find('.order-id').val();
+     
+        // redirect to find_order.php, with parameter values to process the request
+        window.location.href = "delete_order_complete.php?id=" + id;
+        //window.location.replace("find_order.php?id=" + id);
+        return false;
+    });
 });
 </script>
  

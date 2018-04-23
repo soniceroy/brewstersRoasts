@@ -93,6 +93,8 @@ CREATE TABLE pickedLineItems (
     FOREIGN KEY (`processor`) REFERENCES `staff`(`staffId`)
 );
 
+
+# we gotsta make this go with productId
 CREATE TABLE reviewedItems (
     `lineId` int(9),
     `sentiment` int(9),

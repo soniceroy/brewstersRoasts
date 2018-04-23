@@ -5,42 +5,43 @@ session_start();
 include '../config/database.php';
  
 // include objects
-//include_once "objects/product.php";
+include_once "objects/orders.php";
  
 // get database connection
 $database = new Database();
 $db = $database->getConnection();
- 
+
 // initialize objects
-//$product = new Product($db);
+$orders = new Orders($db);
 
 // to prevent undefined index notice
-$action = isset($_GET['action']) ? $_GET['action'] : "";
- 
-// for pagination purposes
-$page = isset($_GET['page']) ? $_GET['page'] : 1; // page is the current page, if there's nothing set, default is page 1
-$records_per_page = 6; // set records or rows of data per page
-$from_record_num = ($records_per_page * $page) - $records_per_page; // calculate for the query LIMIT clause
-
+$orderId = isset($_GET['order_id']) ? $_GET['order_id'] : "";
+$orderDate = $orders->getOrderDate($orderId);
 // set page title
 $page_title="Order Deletion";
  
 // page header html
 include 'layout_header.php';
-?>
 
-<div class="container">
-  <p>Please Enter the order Id</p>
-  <form>
-    <div class="form-group delete-order-form">
-      <label for="order">Order Id:</label>
-      <input type="text" class="form-control order-id" id="order">
-    </div>
-  <button type="submit" class="btn btn-default">Submit</button>
-  </form>
+
+echo "<div class='container'>
+  <h3>Are you sure you want to delete?</h3>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Order Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>" . $orderId . "</td>
+        <td>" . $orderDate . "</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
-
-
-
-<!-- layout footer code -->
-<?php include 'layout_footer.php';?>
+<form class='confirm-delete-form'>
+  <button type='submit' class='btn btn-primary confirm-delete'>Delete</button>
+</form";
+include 'layout_footer.php';?>
