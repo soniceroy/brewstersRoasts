@@ -5,36 +5,43 @@ class Orders {
     private $conn;
     private $table_name="orders";
 
-    // object properties
-    public $orderId;
-    public $orderDate;
-
     // constructor
     public function __construct($db) {
         $this->conn = $db;
     }
 
-    function findOrder($id) {
+    public function findOrder($id) {
+        echo "id: " . $id;
         $query = "SELECT 
                     orderId, orderDate
                 FROM " . $this->table_name . "
-                WHERE orderId=:orderId";
+                WHERE orderId=?";
         
         // prepare query
         $stmt = $this->conn->prepare($query);
 
+        //bind parameter
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+
         // execute query
-        $stmt->execute(['orderId' => $id]);
+        $stmt->execute();
+        //$stmt->execute([$id]);
         // return values
         return $stmt;
 
     }
 
-    function findOrderNum($id) {
-        $stmt = $this->find_order($id);
+    public function findOrderNum($id) {
+        $stmt = $this->findOrder($id);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        orderId = $row['orderId'];
+        return $row['orderId'];
         
+    }
+
+    public function getOrderDate($id) {
+        $stmt = $this->findOrder($id);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row['orderDate'];
     }
  
 }
