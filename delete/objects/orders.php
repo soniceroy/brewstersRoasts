@@ -50,7 +50,7 @@ class Orders {
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $custId, PDO::PARAM_INT);
         $stmt->execute();
-        return $this->findLastOrderByCust($custId);
+        return $this->conn->lastInsertId();
 
     }
 
@@ -63,7 +63,7 @@ class Orders {
         $stmt->bindParam(1, $custId, PDO::PARAM_INT);
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_NUM);
-        return $row[0];
+        
     }
  
 }

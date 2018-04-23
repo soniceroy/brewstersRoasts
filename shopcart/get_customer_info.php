@@ -1,13 +1,13 @@
 <?php
 // start session
 session_start();
- 
-// remove items from the cart
-session_destroy();
- 
+
 // set page title
 $page_title="Great! Thank you!";
- 
+
+include "../config/database.php";
+include "../delete/objects/orders.php";
+include "objects/customers.php";
 // include page header HTML
 include_once 'layout_header.php';
  
