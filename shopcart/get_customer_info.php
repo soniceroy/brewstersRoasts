@@ -22,19 +22,28 @@ echo "</div>";
 
 
 // form for customer info and button to place_order
-echo "<div class='col-md-12 text-align-center'>";
-echo "<div class='cart-row'>";
-    if($item_count>1){
-        echo "<h4 class='m-b-10px'>Total ({$item_count} items)</h4>";
-    }else{
-        echo "<h4 class='m-b-10px'>Total ({$item_count} item)</h4>";
-    }
-    echo "<h4>&#36;" . number_format($total, 2, '.', ',') . "</h4>";
-    echo "<a href='place_order.php' class='btn btn-lg btn-success m-b-10px'>";
-        echo "<span class='glyphicon glyphicon-shopping-cart'></span> Place Order";
-    echo "</a>";
-echo "</div>";
-echo "</div>";
+echo '<div class="container">
+    <form class="update-customer-info-form">
+    <div class="form-group">
+        <label for="firstname">First Name:</label>
+        <input type="text" class="form-control firstname" id="firstname" required>
+        <label for="lastname">Last Name:</label>
+        <input type="text" class="form-control lastname" id="lastname" required>
+        <label for="streetAddress">Street Address:</label>
+        <input type="text" class="form-control streetAddress" id="streetAddress" required>
+        <label for="city">City:</label>
+        <input type="text" class="form-control city" id="city" required>
+        <label for="state">State:</label>
+        <input type="text" class="form-control state" id="state" required>
+        <label for="zip">Zip:</label>
+        <input type="text" class="form-control zip" id="zip" required>
+        <label for="email">Email:</label>
+        <input type="email" class="form-control email" id="email" required>
+    </div>
+    <button type="submit" class="btn btn-default update-customer-info">Order</button>
+    </form>
+    </div>
+    ';
 
 // include page footer HTML
 include_once 'layout_footer.php';

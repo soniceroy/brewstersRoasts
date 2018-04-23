@@ -37,6 +37,26 @@ $(document).ready(function(){
         return false;
     });
 
+    // customer info listener
+    $('.update-customer-info-form').on('submit', function(){
+        var firstname = $(this).find('.firstname').text();
+        var lastname = $(this).find('.lastname').text();
+        var streetAddress = $(this).find('.streetAddress').text();
+        var city = $(this).find('.city').text();
+        var state = $(this).find('.state').text();
+        var zip = $(this).find('.zip').value();
+        var email = $(this).find('.email').value();
+
+        window.location.href = "place_order.php?firstname=" + firstname 
+                                                            + "&lastname=" + lastname
+                                                            + "&streetAddress=" + streetAddress
+                                                            + "&city=" + city
+                                                            + "&state=" + state
+                                                            + "&zip=" + zip
+                                                            + "&email=" + email;
+    
+    })
+
     // change product image on hover
     //$(document).on('mouseenter', '.product-img-thumb', function(){
     //    var data_img_id = $(this).attr('data-img-id');
