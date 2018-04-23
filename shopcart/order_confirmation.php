@@ -11,11 +11,13 @@ $page_title="Thank You!";
 // include page header HTML
 include_once 'layout_header.php';
 
+$orderId =  isset($_GET['id']) ? $_GET['id'] : die('ERROR: missing ID.');
+
 echo "<div class='col-md-12'>";
- 
+
     // tell the user order has been placed
     echo "<div class='alert alert-success'>";
-        echo "<strong>Your order has been placed!</strong> Thank you very much!";
+        echo "<strong>Order number" . $orderId . "has been placed!</strong> Thank you very much!";
     echo "</div>";
  
 echo "</div>";

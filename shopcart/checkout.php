@@ -3,7 +3,7 @@
 session_start();
  
 // connect to database
-include 'config/database.php';
+include '../config/database.php';
  
 // include objects
 include_once "objects/product.php";
@@ -73,7 +73,7 @@ if(count($_SESSION['cart'])>0){
                 echo "<h4 class='m-b-10px'>Total ({$item_count} item)</h4>";
             }
             echo "<h4>&#36;" . number_format($total, 2, '.', ',') . "</h4>";
-            echo "<a href='place_order.php' class='btn btn-lg btn-success m-b-10px'>";
+            echo "<a href='get_customer_info.php' class='btn btn-lg btn-success m-b-10px'>";
                 echo "<span class='glyphicon glyphicon-shopping-cart'></span> Place Order";
             echo "</a>";
         echo "</div>";

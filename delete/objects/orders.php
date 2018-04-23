@@ -43,6 +43,28 @@ class Orders {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return $row['orderDate'];
     }
+
+    public function insertOrder($custId) {
+        $query = "INSERT INTO " . $this->table_name . "
+                 (customer, orderDate) VALUES (?, CURDATE())";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $custId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $this->findLastOrderByCust($custId);
+
+    }
+
+    public function findLastOrderByCust($custId) {
+        $query = "SELECT orderId FROM " . $this->table_name . "
+                  WHERE customer=?
+                  ORDER BY orderId desc
+                  LIMIT 1";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $custId, PDO::PARAM_INT);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_NUM);
+        return $row[0];
+    }
  
 }
 ?>
