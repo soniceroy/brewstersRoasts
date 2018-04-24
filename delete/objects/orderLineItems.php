@@ -20,6 +20,18 @@ class OrderLineItems {
         $stmt->execute();
         return $this->conn->lastInsertId();
 
-    } 
+    }
+
+    public function orderIdShipped($orderId) {
+        $query = "SELECT count(orderLineItems.lineId) FROM orderLineItems 
+                    LEFT JOIN pickedLineItems on orderLineItems.lineId = pickedLineItems.lineId
+                    LEFT JOIN shipments on pickedLineItems.pick = shipments.pickId
+                    WHERE orderId = ? and actualShipDate IS NOT NULL";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $orderId, PDO::PARAM_INT);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_NUM);
+        return $row[0];
+    }
 }
 ?>
