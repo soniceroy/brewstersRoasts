@@ -1,25 +1,31 @@
 <?php
 // start session
 session_start();
- 
-// remove items from the cart
-session_destroy();
- 
-// set page title
-$page_title="Thank You!";
- 
-// include page header HTML
-include_once 'layout_header.php';
+echo "HERERERERE";
+/*
+include "../config/database.php";
+include "../delete/objects/orders.php";
+include "objects/customers.php";
+$database = new Database();
+$db = $database->getConnection();
+$customers = new Customers($db);
+$orders = new Orders($db);
 
-echo "<div class='col-md-12'>";
- 
-    // tell the user order has been placed
-    echo "<div class='alert alert-success'>";
-        echo "<strong>Your order has been placed!</strong> Thank you very much!";
-    echo "</div>";
- 
-echo "</div>";
- 
-// include page footer HTML
-include_once 'layout_footer.php';
+$firstname = isset($_GET['firstname']) ? $_GET['firstname'] : "";
+$lastname = isset($_GET['lastname']) ? $_GET['lastname'] : "";
+$streetAddress = isset($_GET['streetAddress']) ? $_GET['streetAddress'] : "";
+$city = isset($_GET['city']) ? $_GET['city'] : "";
+$state = isset($_GET['state']) ? $_GET['state'] : "";
+$zip = isset($_GET['zip']) ? $_GET['zip'] : "";
+$email = isset($_GET['email']) ? $_GET['email'] : "";
+
+$custId = $customers->insertCustomer(
+    $firstname, $lastname, $streetAddress, $city, $state, $zip, $email
+);
+
+$orderId = $orders->insertOrder($custId);
+
+// code for the orderlineItem
+
+header('Location: order_confirmation?orderId=' . $orderId);*/
 ?>

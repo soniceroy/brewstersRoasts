@@ -39,14 +39,23 @@ $(document).ready(function(){
 
     // customer info listener
     $('.update-customer-info-form').on('submit', function(){
-        var firstname = $(this).find('.firstname').text();
-        var lastname = $(this).find('.lastname').text();
-        var streetAddress = $(this).find('.streetAddress').text();
-        var city = $(this).find('.city').text();
-        var state = $(this).find('.state').text();
-        var zip = $(this).find('.zip').value();
-        var email = $(this).find('.email').value();
-
+        var firstname = $(this).find('.firstname').val();
+        var lastname = $(this).find('.lastname').val();
+        var streetAddress = $(this).find('.streetAddress').val();
+        var city = $(this).find('.city').val();
+        var state = $(this).find('.state').val();
+        var zip = $(this).find('.zip').val();
+        var email = $(this).find('.email').val();
+/*
+        window.location.replace("place_order.php?firstname=" + firstname 
+                                                            + "&lastname=" + lastname
+                                                            + "&streetAddress=" + streetAddress
+                                                            + "&city=" + city
+                                                            + "&state=" + state
+                                                            + "&zip=" + zip
+                                                            + "&email=" + email
+        );
+        */
         window.location.href = "place_order.php?firstname=" + firstname 
                                                             + "&lastname=" + lastname
                                                             + "&streetAddress=" + streetAddress
@@ -54,8 +63,8 @@ $(document).ready(function(){
                                                             + "&state=" + state
                                                             + "&zip=" + zip
                                                             + "&email=" + email;
-    
-    })
+        return false;
+    });
 
     // change product image on hover
     //$(document).on('mouseenter', '.product-img-thumb', function(){
