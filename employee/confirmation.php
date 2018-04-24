@@ -22,12 +22,10 @@ $page_title="Staff Wage Update";
 
 
 // page header html
-include '../layout_header.php';
+include 'layout_header.php';
 ?>
 
-<div class="container">
-  <p>Updated</p>
-</div>
+  <h2>Updated</h2>
 
 
 

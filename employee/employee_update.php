@@ -3,16 +3,6 @@
 session_start();
 // connect to database
 include '../config/database.php';
- 
-// include objects
-//include_once "objects/product.php";
- 
-// get database connection
-$database = new Database();
-$db = $database->getConnection();
- 
-// initialize objects
-//$product = new Product($db);
 
 // to prevent undefined index notice
 $action = isset($_GET['action']) ? $_GET['action'] : "";
@@ -21,7 +11,7 @@ $action = isset($_GET['action']) ? $_GET['action'] : "";
 $page_title="Staff Wage Update";
 
 // page header html
-include '../layout_header.php';
+include 'layout_header.php';
 if($action == 'notASupervisor') {
     echo '
     
@@ -29,7 +19,7 @@ if($action == 'notASupervisor') {
 }
 ?>
 
-<div class="container">
+<!--<div class="container">-->
   <p>Please Enter your SupervisorId</p>
   <form class="update-wage-form">
     <div class="form-group">
@@ -46,7 +36,7 @@ if($action == 'notASupervisor') {
     </div>
   <button type="submit" class="btn btn-default update-wage">Submit</button>
   </form>
-</div>
+<!--</div>-->
 
 
 

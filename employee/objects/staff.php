@@ -15,7 +15,7 @@ class Staff {
         $query = "SELECT supervisor
                     
                 FROM " . $this->supervises . "
-                WHERE orderId=?";
+                WHERE supervisor = ?";
         
         // prepare query
         $stmt = $this->conn->prepare($query);
@@ -37,8 +37,8 @@ class Staff {
         $stmt = $this->conn->prepare($query);
 
         //bind parameter
-        $stmt->bindParam(1, $id, PDO::PARAM_INT);
-        $stmt->bindParam(2, $newWage, PDO::PARAM_STR);
+        $stmt->bindParam(2, $id, PDO::PARAM_INT);
+        $stmt->bindParam(1, $newWage, PDO::PARAM_STR);
 
         // execute query
         $stmt->execute();

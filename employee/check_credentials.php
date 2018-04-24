@@ -3,7 +3,7 @@
 session_start();
 // connect to database
 include '../config/database.php';
-include '/objects/staff.php'; 
+include 'objects/staff.php'; 
 // include objects
 //include_once "objects/product.php";
  
