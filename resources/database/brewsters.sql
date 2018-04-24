@@ -55,7 +55,22 @@ CREATE TABLE orders (
 );
 
 
-# beanId references product id
+CREATE TABLE IF NOT EXISTS `products` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(512) NOT NULL,
+  `description` text NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `product_images` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `name` varchar(512) NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`product_id`) REFERENCES `products`(`id`)
+);
+
 CREATE TABLE orderLineItems (
     `lineId` int(9) AUTO_INCREMENT,
     `orderQuantity` int(9),
@@ -63,7 +78,8 @@ CREATE TABLE orderLineItems (
     `orderId` int(9),
     `beanId` int(9),
     PRIMARY KEY (`lineId`),
-    FOREIGN KEY (`orderId`) REFERENCES `orders`(`orderId`),
+    FOREIGN KEY (`orderId`) REFERENCES `orders`(`orderId`) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (`beanId`) REFERENCES `products`(`id`),
     CONSTRAINT `grind`
         CHECK (`grind` IN ("rough", "medium", "fine"))
 );
@@ -89,8 +105,8 @@ CREATE TABLE pickedLineItems (
     `processDate` DATE,
     `processor` int(9),
     PRIMARY KEY (`pick`, `lineId`),
-    FOREIGN KEY (`pick`) REFERENCES `shipments`(`pickId`),
-    FOREIGN KEY (`lineId`) REFERENCES `orderLineItems`(`lineId`),
+    FOREIGN KEY (`pick`) REFERENCES `shipments`(`pickId`) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (`lineId`) REFERENCES `orderLineItems`(`lineId`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (`warehouse`) REFERENCES `warehouses`(`wareId`),
     FOREIGN KEY (`processor`) REFERENCES `staff`(`staffId`)
 );
@@ -103,7 +119,7 @@ CREATE TABLE reviewedItems (
     `notes` varchar(160),
     `reviewDate` DATE,
     PRIMARY KEY (`lineId`),
-    FOREIGN KEY (`lineId`) REFERENCES `orderLineItems`(`lineId`)
+    FOREIGN KEY (`lineId`) REFERENCES `orderLineItems`(`lineId`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE reviewedShipments (
@@ -111,24 +127,10 @@ CREATE TABLE reviewedShipments (
     `sentiment` int(9),
     `notes` varchar(160),
     PRIMARY KEY (`pick`),
-    FOREIGN KEY (`pick`) REFERENCES `shipments`(`pickId`)
+    FOREIGN KEY (`pick`) REFERENCES `shipments`(`pickId`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
-CREATE TABLE IF NOT EXISTS `products` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(512) NOT NULL,
-  `description` text NOT NULL,
-  `price` decimal(10,2) NOT NULL,
-  PRIMARY KEY (`id`)
-);
-
-CREATE TABLE IF NOT EXISTS `product_images` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_id` int(11) NOT NULL,
-  `name` varchar(512) NOT NULL,
-  PRIMARY KEY (`id`)
-);
 
 
 INSERT INTO warehouses (serviceCapacity, streetAddress, city, state, zip)
@@ -185,6 +187,27 @@ INSERT INTO orders (orderId, orderDate, customer) VALUES (2, '2018-01-02', 2);
 INSERT INTO orders (orderId, orderDate, customer) VALUES (3, '2018-01-03', 3);
 INSERT INTO orders (orderId, orderDate, customer) VALUES (4, '2018-01-04', 4);
 INSERT INTO orders (orderId, orderDate, customer) VALUES (5, '2018-01-05', 5);
+
+INSERT INTO `products` (`name`, `description`, `price`) VALUES
+('16 oz. Sunny Morning Blend', '&lt;p&gt;Make every morning feel bright and sunny with this award winning medium roasted coffee.&lt;' , '12.99'),
+('16 oz. Sweet Things Mix', '&lt;p&gt;Makes a gentle cup of coffee to accompany sweets. Also perfect for those who enjoy the lightly roasted side of things. &lt;/p&gt;', '9.99'),
+('16 oz. Founders Special', '&lt;p&gt;This darkly roasted coffee packs a punch without sacrificing flavor. Perfect for those who crave more caffenine.&lt;/p&gt;', '16.99'),
+('16 oz. Zydeco Wakeup', '&lt;p&gt;Makes a rich savory cup of coffee from our medium roasted beans with a flavor sure to give you happy feet.&lt;/p&gt;', '14.99'),
+('16 oz. Terrifically Toasted Hazelnut', '&lt;p&gt;Perfectly medium roasted coffee beans combined with terrifically toasted hazelnut flavor.&lt;/p&gt;', '14.99'),
+('16 oz. Perfect Pecan Praline', '&lt;p&gt;Another lightly roasted blend made for those who enjoy the sweeter things.&lt;/p&gt;', '14.99'),
+('96 oz. Coffee Cornucopia Package', '&lt;p&gt; A little bit of everything for those who want it all. Consists of six 16 oz. blends: Sunny Morning, Sweet Things, Founders Special, Zydeco Wakeup, Terrifically Toasted Hazelnut, and Perfect Pecan Praline.&lt;/p&gt;', '75.99');
+
+
+
+INSERT INTO `product_images` (`product_id`, `name`) VALUES
+(1, 'p01.jpg'),
+(2, 'p02.jpg'),
+(3, 'p03.jpg'),
+(4, 'p04.jpg'),
+(5, 'p05.jpg'),
+(6, 'p06.jpg'),
+(7, 'p07.jpg');
+
 
 INSERT INTO orderLineItems (orderQuantity, grind, orderId, beanId)
     VALUES (4, "fine", 1, 1);
@@ -264,22 +287,4 @@ INSERT INTO reviewedShipments (pick, sentiment, notes)
     VALUES (4, 5, "No complaints.");
 
 
-INSERT INTO `products` (`name`, `description`, `price`) VALUES
-('16 oz. Sunny Morning Blend', '&lt;p&gt;Make every morning feel bright and sunny with this award winning medium roasted coffee.&lt;' , '12.99'),
-('16 oz. Sweet Things Mix', '&lt;p&gt;Makes a gentle cup of coffee to accompany sweets. Also perfect for those who enjoy the lightly roasted side of things. &lt;/p&gt;', '9.99'),
-('16 oz. Founders Special', '&lt;p&gt;This darkly roasted coffee packs a punch without sacrificing flavor. Perfect for those who crave more caffenine.&lt;/p&gt;', '16.99'),
-('16 oz. Zydeco Wakeup', '&lt;p&gt;Makes a rich savory cup of coffee from our medium roasted beans with a flavor sure to give you happy feet.&lt;/p&gt;', '14.99'),
-('16 oz. Terrifically Toasted Hazelnut', '&lt;p&gt;Perfectly medium roasted coffee beans combined with terrifically toasted hazelnut flavor.&lt;/p&gt;', '14.99'),
-('16 oz. Perfect Pecan Praline', '&lt;p&gt;Another lightly roasted blend made for those who enjoy the sweeter things.&lt;/p&gt;', '14.99'),
-('96 oz. Coffee Cornucopia Package', '&lt;p&gt; A little bit of everything for those who want it all. Consists of six 16 oz. blends: Sunny Morning, Sweet Things, Founders Special, Zydeco Wakeup, Terrifically Toasted Hazelnut, and Perfect Pecan Praline.&lt;/p&gt;', '75.99');
 
-
-
-INSERT INTO `product_images` (`product_id`, `name`) VALUES
-(1, 'p01.jpg'),
-(2, 'p02.jpg'),
-(3, 'p03.jpg'),
-(4, 'p04.jpg'),
-(5, 'p05.jpg'),
-(6, 'p06.jpg'),
-(7, 'p07.jpg');

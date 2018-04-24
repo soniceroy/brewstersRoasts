@@ -22,7 +22,7 @@ $id = isset($_GET['id']) ? $_GET['id'] : "";
 $order_id = $orders->findOrderNum($id);
 
 // find out if order is shipped
-$shipped = 
+//$shipped =
 
 if($order_id) {
     header('Location: confirm_delete.php?order_id=' . $order_id);

@@ -65,6 +65,16 @@ class Orders {
         $row = $stmt->fetch(PDO::FETCH_NUM);
         
     }
+
+    public function deleteOrder($orderId) {
+        $query = "DELETE FROM " . $this->table_name . "
+                    WHERE orderId = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $orderId, PDO::PARAM_INT);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_NUM);
+
+    }
  
 }
 ?>
