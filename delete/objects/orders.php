@@ -11,7 +11,6 @@ class Orders {
     }
 
     public function findOrder($id) {
-        echo "id: " . $id;
         $query = "SELECT 
                     orderId, orderDate
                 FROM " . $this->table_name . "
