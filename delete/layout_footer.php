@@ -1,5 +1,5 @@
 
- <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+ <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   
 <!-- Latest compiled and minified Bootstrap JavaScript -->
