@@ -104,7 +104,7 @@ HAVING Avg(actualShipDate - expectedShipDate) = (
 
 
 \! echo Query 9: List the most ordered beanId 
-SELECT beanId as most_ordered_beanId
+SELECT beanId as most_ordered_beanId, SUM(orderQuantity) as total
 from orderLineItems
 GROUP BY beanId
 HAVING SUM(orderQuantity) = (
@@ -117,11 +117,11 @@ HAVING SUM(orderQuantity) = (
 );
 
 \! echo Query 10: List the least ordered beanIds
-SELECT beanId as least_ordered_beanId
+SELECT beanId as beanId, SUM(orderQuantity) as total
 from orderLineItems
 GROUP BY beanId
 HAVING SUM(orderQuantity) = (
-    SELECT MIN(sums.num)
+    SELECT MIN(sums.num) as min
     FROM (
         SELECT beanId, SUM(orderQuantity) as num
         FROM orderLineItems
