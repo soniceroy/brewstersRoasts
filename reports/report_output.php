@@ -4,7 +4,7 @@
 session_start();
 include_once "../config/database.php";
 include_once "objects/reporter.php";
-
+include "layout_header.php";
 // get database connection
 $database = new Database();
 $db = $database->getConnection();
@@ -20,12 +20,9 @@ if($id == 1)
     $warehouse = isset($_GET['warehouse']) ? $_GET['warehouse'] : "";
     $startDate = isset($_GET['startDate']) ? $_GET['startDate'] : "";
     $endDate = isset($_GET['endDate']) ? $_GET['endDate'] : "";
-    $count = $reporter->shipDateByWarehouse($startDate, $endDate, $warehouse);
+    $count = $reporter->shipByDateWarehouse($startDate, $endDate, $warehouse);
+    
 echo '
-<div class="container">
-<div class="table-responsive">          
-<table class="table">
-  <thead>
   <h2>Shipments</h2>
   <div class="table-responsive">          
   <table class="table">
@@ -37,12 +34,13 @@ echo '
     </thead>
     <tbody>
         <tr>
-              <td>' . $warehouse . '$</td>
+              <td>' . $warehouse . '</td>
               <td>' . $count . '</td>
-            </tr>
+        </tr>
     </tbody>
 </table>
 </div>';
 }
+include "layout_footer.php";
 ?>
 

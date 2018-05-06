@@ -14,12 +14,13 @@ class Reporter {
             where actualShipDate between ? and ? and pickId
             in (select distinct pick from pickedLineItems where warehouse = ?)";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(1, $orderId, PDO::PARAM_STR);
-        $stmt->bindParam(2, $beanId, PDO::PARAM_STR);
-        $stmt->bindParam(3, $quantity, PDO::PARAM_INT);
+        $stmt->bindParam(1, $startDate, PDO::PARAM_STR);
+        $stmt->bindParam(2, $endDate, PDO::PARAM_STR);
+        $stmt->bindParam(3, $warehouse, PDO::PARAM_INT);
         $stmt->execute();
-        return $stmt->fetchColumn();
 
+        $row = $stmt->fetch(PDO::FETCH_NUM);
+        return $row[0];
     }
 }
 ?>
